@@ -23,6 +23,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "FrontToBack.Client", "..\Fr
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "9266"
+		SlnRelativePath = "..\FrontToBack.Client\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
