@@ -1,8 +1,11 @@
 ﻿using FrontToBack.Models;
 using System.Web.Http;
+using System.Web.Http.Cors;
+
 
 namespace FrontToBack.Controllers
 {
+    [EnableCors("http://localhost:9640", "*", "*")]
     public class ProductsController : ApiController
     {
         private ProductRepository repository = new ProductRepository();

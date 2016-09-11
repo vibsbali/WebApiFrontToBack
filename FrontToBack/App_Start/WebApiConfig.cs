@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using Newtonsoft.Json.Serialization;
+using System.Web.Http;
 
 namespace FrontToBack
 {
@@ -11,12 +12,17 @@ namespace FrontToBack
             //config.SuppressDefaultHostAuthentication();
             //config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
-            //Enable Cors
-            config.EnableCors();
-
-
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+
+            //Enable Cors - This can be configured on controller too
+            //Ensure to add it after config.MapHttpAttributeRoutes
+            config.EnableCors();
+
+            //change serialization setting
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
+                new CamelCasePropertyNamesContractResolver();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
