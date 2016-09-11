@@ -4,8 +4,12 @@
         .module("productManagement").controller("ProductListCtrl",["productResource", function(productResource) {
             var vm = this;
 
+            vm.searchCriteria = "GDN";
+
             //query is get method and takes in a callback function
-            productResource.query(function(data) {
+            //the object {search:vm.searchCriteria} will be added as query string
+            productResource.query(
+                {search: vm.searchCriteria}, function(data) {
                 vm.products = data;
             });
 

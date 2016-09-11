@@ -10,5 +10,10 @@ namespace FrontToBack.Models
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public DateTime ReleaseDate { get; set; }
+
+        public override string ToString()
+        {
+            return $"Product Name {ProductName} Product Code {ProductCode}";
+        }
     }
 }

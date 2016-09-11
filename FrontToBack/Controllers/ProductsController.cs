@@ -1,7 +1,7 @@
 ﻿using FrontToBack.Models;
 using System.Web.Http;
 using System.Web.Http.Cors;
-
+using System.Linq;
 
 namespace FrontToBack.Controllers
 {
@@ -16,11 +16,23 @@ namespace FrontToBack.Controllers
             return Ok(repository.Retrieve());
         }
 
+        public IHttpActionResult Get(string search)
+        {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return Get();
+            }
+
+            return Ok(repository.Retrieve().Where(p => p.ProductCode.Contains(search)));
+        }
+
         // GET: api/Products/5
         public string Get(int id)
         {
             return "value";
         }
+
+
 
         // POST: api/Products
         public void Post([FromBody]string value)
