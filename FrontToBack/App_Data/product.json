@@ -81,10 +81,18 @@
   },
   {
     "Description": "Everyone wants one!",
-    "Price": 0.0,
+    "Price": 599.0,
     "ProductCode": "APL-123456",
     "ProductId": 11,
     "ProductName": "iWatch",
     "ReleaseDate": "2015-03-11T10:55:08.535279+11:00"
+  },
+  {
+    "Description": "11-inch Apple Laptop",
+    "Price": 1299.0,
+    "ProductCode": "APL-0002",
+    "ProductId": 12,
+    "ProductName": "MacBook Air",
+    "ReleaseDate": "2016-09-12T08:28:18.4134916+10:00"
   }
 ]
