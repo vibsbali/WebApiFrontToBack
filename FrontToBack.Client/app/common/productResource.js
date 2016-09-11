@@ -5,7 +5,10 @@
         "$resource", "appSettings", function ($resource, appSettings) {
             //returns $resource object
             //The parameters are url with id as optional
-            return $resource(appSettings.serverPath + "/api/products/");
+            return $resource(appSettings.serverPath + "/api/products/:id", null,
+                {
+                    "update" : {method: "PUT"}
+                });
         }
     ]);
 }())
