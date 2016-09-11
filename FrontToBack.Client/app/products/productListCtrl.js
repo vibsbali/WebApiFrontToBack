@@ -5,11 +5,25 @@
             var vm = this;
 
             vm.searchCriteria = "GDN";
+            vm.searchCriteriaTwo = "Video";
+            vm.sortProperty = "Price";
+            vm.sortDirection = "desc";
 
             //query is get method and takes in a callback function
             //the object {search:vm.searchCriteria} will be added as query string
+            //unhide following to test
+            //productResource.query({ search: vm.searchCriteria }, function (data) {
+            //    vm.products = data;
+            //});
+
             productResource.query(
-                {search: vm.searchCriteria}, function(data) {
+                //{ $skip:1, $top:3 },
+                {
+                    $filter: "substringof('".concat(vm.searchCriteria).concat("',ProductCode)")
+                              .concat(" or substringof('".concat(vm.searchCriteriaTwo).concat("',ProductName)")),
+                    $orderby: vm.sortProperty + " " + vm.sortDirection
+                },
+                function (data) {
                 vm.products = data;
             });
 

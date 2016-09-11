@@ -2,6 +2,8 @@
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Linq;
+using System.Web.Http.OData;
+
 
 namespace FrontToBack.Controllers
 {
@@ -11,9 +13,10 @@ namespace FrontToBack.Controllers
         private ProductRepository repository = new ProductRepository();
 
         // GET: api/Products
+        [EnableQuery()]
         public IHttpActionResult Get()
         {
-            return Ok(repository.Retrieve());
+            return Ok(repository.Retrieve().AsQueryable());
         }
 
         public IHttpActionResult Get(string search)
