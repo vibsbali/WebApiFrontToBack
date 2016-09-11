@@ -1,7 +1,7 @@
 ﻿using FrontToBack.Models;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Linq;
 using System.Web.Http.OData;
 
 
@@ -14,6 +14,7 @@ namespace FrontToBack.Controllers
 
         // GET: api/Products
         [EnableQuery()]
+        //We can add constraints to EnableQuery for security
         public IHttpActionResult Get()
         {
             return Ok(repository.Retrieve().AsQueryable());
