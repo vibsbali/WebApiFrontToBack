@@ -31,12 +31,16 @@ namespace FrontToBack.Controllers
         }
 
         // GET: api/Products/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            var product = repository.Retrieve().FirstOrDefault(p => p.ProductId == id);
+            if (product == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(product);
         }
-
-
 
         // POST: api/Products
         public void Post([FromBody]string value)
