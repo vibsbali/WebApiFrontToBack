@@ -33,6 +33,12 @@ namespace FrontToBack.Controllers
         // GET: api/Products/5
         public IHttpActionResult Get(int id)
         {
+            //We create a new product if id == 0
+            if (id == 0)
+            {
+                return Ok(repository.Create());
+            }
+
             var product = repository.Retrieve().FirstOrDefault(p => p.ProductId == id);
             if (product == null)
             {
@@ -43,13 +49,27 @@ namespace FrontToBack.Controllers
         }
 
         // POST: api/Products
-        public void Post([FromBody]string value)
+        public IHttpActionResult Post([FromBody]Product product)
         {
+            if (ModelState.IsValid)
+            {
+                var newProduct = repository.Save(product);
+                return Created("http://localhost/api/products/" + newProduct.ProductId, newProduct);
+            }
+
+            return BadRequest(ModelState);
         }
 
         // PUT: api/Products/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, [FromBody]Product product)
         {
+            if (ModelState.IsValid)
+            {
+                var updatedProduct = repository.Save(id, product);
+                return Ok(updatedProduct);
+            }
+
+            return BadRequest(ModelState);
         }
 
         // DELETE: api/Products/5
