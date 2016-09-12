@@ -42,7 +42,8 @@
                     vm.userData.userName = vm.userData.email;
 
                     userAccount.login.loginUser(vm.userData,
-                        function(data) {
+                        function (data) {
+                            console.log(data);
                             vm.isLoggedIn = true;
                             vm.message = "";
                             vm.password = "";
