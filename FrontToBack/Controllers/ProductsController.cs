@@ -1,7 +1,9 @@
 ﻿using FrontToBack.Models;
+using System;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Http.Description;
 using System.Web.Http.OData;
 
 
@@ -15,66 +17,104 @@ namespace FrontToBack.Controllers
         // GET: api/Products
         [EnableQuery()]
         //We can add constraints to EnableQuery for security
+        [ResponseType(typeof(Product))]
+        //We use response type so that Web Api shows proper documentation
         public IHttpActionResult Get()
         {
-            return Ok(repository.Retrieve().AsQueryable());
+            try
+            {
+                return Ok(repository.Retrieve().AsQueryable());
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
         }
 
         public IHttpActionResult Get(string search)
         {
-            if (string.IsNullOrWhiteSpace(search))
+            try
             {
-                return Get();
-            }
+                if (string.IsNullOrWhiteSpace(search))
+                {
+                    return Get();
+                }
 
-            return Ok(repository.Retrieve().Where(p => p.ProductCode.Contains(search)));
+                return Ok(repository.Retrieve().Where(p => p.ProductCode.Contains(search)));
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
         }
 
         // GET: api/Products/5
         public IHttpActionResult Get(int id)
         {
-            //We create a new product if id == 0
-            if (id == 0)
+            try
             {
-                return Ok(repository.Create());
-            }
+                //We create a new product if id == 0
+                if (id == 0)
+                {
+                    return Ok(repository.Create());
+                }
 
-            var product = repository.Retrieve().FirstOrDefault(p => p.ProductId == id);
-            if (product == null)
+                var product = repository.Retrieve().FirstOrDefault(p => p.ProductId == id);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(product);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return InternalServerError(e);
             }
-
-            return Ok(product);
         }
 
         // POST: api/Products
         public IHttpActionResult Post(Product product)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var newProduct = repository.Save(product);
-                return Created(Request.RequestUri + newProduct.ProductId.ToString(), newProduct);
-            }
+                if (ModelState.IsValid)
+                {
+                    var newProduct = repository.Save(product);
+                    return Created(Request.RequestUri + newProduct.ProductId.ToString(), newProduct);
+                }
 
-            return BadRequest(ModelState);
+                return BadRequest(ModelState);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
         }
 
         // PUT: api/Products/5
         public IHttpActionResult Put(int id, Product product)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var updatedProduct = repository.Save(id, product);
-                if (updatedProduct == null)
+                if (ModelState.IsValid)
                 {
-                    return BadRequest();
+                    var updatedProduct = repository.Save(id, product);
+                    if (updatedProduct == null)
+                    {
+                        return BadRequest();
+                    }
+
+                    return Ok(updatedProduct);
                 }
 
-                return Ok(updatedProduct);
+                return BadRequest(ModelState);
             }
-
-            return BadRequest(ModelState);
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+            
         }
 
         // DELETE: api/Products/5
