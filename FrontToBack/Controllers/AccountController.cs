@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -21,6 +22,7 @@ namespace FrontToBack.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
+    [EnableCors("http://localhost:9640", "*", "*")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
