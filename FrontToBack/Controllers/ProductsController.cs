@@ -42,14 +42,14 @@ namespace FrontToBack.Controllers
             var product = repository.Retrieve().FirstOrDefault(p => p.ProductId == id);
             if (product == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             return Ok(product);
         }
 
         // POST: api/Products
-        public IHttpActionResult Post([FromBody]Product product)
+        public IHttpActionResult Post(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace FrontToBack.Controllers
         }
 
         // PUT: api/Products/5
-        public IHttpActionResult Put(int id, [FromBody]Product product)
+        public IHttpActionResult Put(int id, Product product)
         {
             if (ModelState.IsValid)
             {

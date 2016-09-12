@@ -8,7 +8,7 @@
             vm.message = "";
 
         //using $resource
-            productResource.get({ id: 0 },
+            productResource.get({ id: 5 },
                 function(data) {
                     vm.product = data;
                     vm.originalProduct = angular.copy(data);
@@ -26,13 +26,13 @@
                     vm.product.$update({
                         id: vm.product.productId
                     }, function (data) {
-
+                        console.log(data);
                         vm.message = "... Save Complete";
                     });
                 } else {
                     vm.product.$save(function(data) {
+                        console.log(data);
                         vm.originalProduct = angular.copy(data);
-
                         vm.message = "... Save complete";
                     });
                 }
