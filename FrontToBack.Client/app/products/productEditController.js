@@ -8,10 +8,12 @@
             vm.message = "";
 
         //using $resource
-            productResource.get({ id: 5 },
+            productResource.get({ id: 4 },
                 function(data) {
                     vm.product = data;
                     vm.originalProduct = angular.copy(data);
+                }, function(response) {
+                    vm.message = response.statusText + "\r\n";
                 });
 
             if (vm.product && vm.product.productId) {
@@ -28,12 +30,16 @@
                     }, function (data) {
                         console.log(data);
                         vm.message = "... Save Complete";
+                    }, function(response) {
+                        vm.message = response.statusText + "\r\n";
                     });
                 } else {
                     vm.product.$save(function(data) {
                         console.log(data);
                         vm.originalProduct = angular.copy(data);
                         vm.message = "... Save complete";
+                    }, function(response) {
+                        vm.message = response.statusText + "\r\n";
                     });
                 }
             };

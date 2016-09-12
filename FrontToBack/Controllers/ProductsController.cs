@@ -54,7 +54,7 @@ namespace FrontToBack.Controllers
             if (ModelState.IsValid)
             {
                 var newProduct = repository.Save(product);
-                return Created("http://localhost/api/products/" + newProduct.ProductId, newProduct);
+                return Created(Request.RequestUri + newProduct.ProductId.ToString(), newProduct);
             }
 
             return BadRequest(ModelState);
@@ -66,6 +66,11 @@ namespace FrontToBack.Controllers
             if (ModelState.IsValid)
             {
                 var updatedProduct = repository.Save(id, product);
+                if (updatedProduct == null)
+                {
+                    return BadRequest();
+                }
+
                 return Ok(updatedProduct);
             }
 
