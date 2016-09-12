@@ -9,7 +9,9 @@ using System.Web.Http.OData;
 
 namespace FrontToBack.Controllers
 {
+    //Cors is enabled via config file
     [EnableCors("http://localhost:9640", "*", "*")]
+    [Authorize]
     public class ProductsController : ApiController
     {
         private ProductRepository repository = new ProductRepository();
@@ -114,7 +116,7 @@ namespace FrontToBack.Controllers
             {
                 return InternalServerError(e);
             }
-            
+
         }
 
         // DELETE: api/Products/5

@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <div class="navbar-brand">Acme Product Management</div>
-                <form ng-hide="vm.isLoggedIn" class="navbar-form navbar-right">
+                <form ng-hide="vm.isLoggedIn()" class="navbar-form navbar-right">
                     <div class="form-group">
                         <input type="text"
                                class="form-control"
@@ -34,7 +34,7 @@
         </div>
     </nav>
     <div class="container">
-        <div ng-if="vm.isLoggedIn" ng-include="'app/products/productEditView.html'"></div>
+        <div ng-if="vm.isLoggedIn()" ng-include="'app/products/productEditView.html'"></div>
     </div>
     <!-- Library Scripts -->
     <script src="scripts/angular.js"></script>
@@ -46,6 +46,7 @@
     <!-- Services -->
     <script src="app/common/common.services.js"></script>
     <script src="app/common/productResource.js"></script>
+    <script src="app/common/currentUser.js"></script>
     <script src="app/common/userAccount.js"></script>
 
     <!--UserManagement Controllers-->

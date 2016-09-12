@@ -31,8 +31,8 @@ namespace FrontToBack.Providers
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
 
             //You can enable Cors here or through Configuration file
-            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin",
-            //    new[] {"http://localhost:9640"});
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin",
+                new[] {"http://localhost:9640"});
 
             if (user == null)
             {

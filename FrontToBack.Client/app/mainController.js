@@ -2,10 +2,13 @@
 (function () {
     angular.module("productManagement")
         .controller("MainController", [
-            "userAccount", function (userAccount) {
+            "userAccount", "currentUser", function (userAccount, currentUser) {
                 var vm = this;
 
-                vm.isLoggedIn = false;
+                vm.isLoggedIn = function() {
+                    return currentUser.getProfile().isLoggedIn;
+                };
+
                 vm.message = "";
                 vm.userData = {
                     userName: "",
@@ -44,14 +47,12 @@
                     userAccount.login.loginUser(vm.userData,
                         function (data) {
                             console.log(data);
-                            vm.isLoggedIn = true;
                             vm.message = "";
                             vm.password = "";
-                            vm.token = data.access_token;
+                            currentUser.setProfile(vm.userData.userName, data.access_token);
                         },
                         function(response) {
                             vm.password = "";
-                            vm.isLoggedIn = false;
                             vm.message = response.statusText + "\r\n";
 
                             //Following code handles cases when exception gets thrown from the web api
