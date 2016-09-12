@@ -14,6 +14,10 @@
                     vm.originalProduct = angular.copy(data);
                 }, function(response) {
                     vm.message = response.statusText + "\r\n";
+                    //Following code handles cases when exception gets thrown from the web api
+                    if (response.data.exceptionMessage) {
+                        vm.message += response.data.exceptionMessage;
+                    }
                 });
 
             if (vm.product && vm.product.productId) {
@@ -32,6 +36,10 @@
                         vm.message = "... Save Complete";
                     }, function(response) {
                         vm.message = response.statusText + "\r\n";
+                        //Following code handles cases when exception gets thrown from the web api
+                        if (response.data.exceptionMessage) {
+                            vm.message += response.data.exceptionMessage;
+                        }
                     });
                 } else {
                     vm.product.$save(function(data) {
@@ -40,6 +48,10 @@
                         vm.message = "... Save complete";
                     }, function(response) {
                         vm.message = response.statusText + "\r\n";
+                        //Following code handles cases when exception gets thrown from the web api
+                        if (response.data.exceptionMessage) {
+                            vm.message += response.data.exceptionMessage;
+                        }
                     });
                 }
             };
