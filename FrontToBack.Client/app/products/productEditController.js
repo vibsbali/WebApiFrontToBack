@@ -36,6 +36,14 @@
                         vm.message = "... Save Complete";
                     }, function(response) {
                         vm.message = response.statusText + "\r\n";
+
+                        //Adding data annotation validation from web api
+                        if (response.data.modelState) {
+                            for (var key in response.data.modelState) {
+                                vm.message += response.data.modelState[key] + "\r\n";
+                            }
+                        }
+
                         //Following code handles cases when exception gets thrown from the web api
                         if (response.data.exceptionMessage) {
                             vm.message += response.data.exceptionMessage;
@@ -48,6 +56,14 @@
                         vm.message = "... Save complete";
                     }, function(response) {
                         vm.message = response.statusText + "\r\n";
+
+                        //Adding data annotation validation from web api
+                        if (response.data.modelState) {
+                            for (var key in response.data.modelState) {
+                                vm.message += response.data.modelState[key] + "\r\n";
+                            }
+                        }
+
                         //Following code handles cases when exception gets thrown from the web api
                         if (response.data.exceptionMessage) {
                             vm.message += response.data.exceptionMessage;
